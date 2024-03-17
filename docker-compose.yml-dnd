@@ -1,6 +1,11 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: sonar
 
   # Sonarqube service
   sonarqube:
@@ -13,6 +18,8 @@ services:
       - ./sonar/sonarqube_conf:/opt/sonarqube/conf
       - ./sonar/sonarqube_extensions:/opt/sonarqube/extensions
       - ./sonar/sonarqube_bundled-plugins:/opt/sonarqube/bundled-plugins
+    environment:
+      SONARQUBE_JDBC_URL: jdbc:postgresql://postgres:5432/sonar
 
   # Jenkins service
   jenkins:
@@ -25,11 +32,25 @@ services:
       - 8080:8080  # Adjust port if needed
       - 50000:50000  # Jenkins slave agent port
     environment:
-      - no_proxy=sonarqube
+      - DOCKER_HOST=tcp://docker:2376
+      - no_proxy=jenkins-agent
     volumes:
       - ./jenkins/jenkins_data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
 
+  jenkins-agent:
+    image: alpine/socat
+    restart: always
+    container_name: alpine-socat
+    command: "TCP-LISTEN:2375,fork,reuseaddr UNIX-CONNECT:/var/run/docker.sock"
+    environment:
+      - no_proxy=jenkins
+    depends_on:
+      - jenkins
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 127.0.0.1:2376:2375
 
 
 
