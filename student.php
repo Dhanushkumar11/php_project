@@ -9,7 +9,7 @@ if(empty($_SESSION['member_id'])){
 ?>
 <html><head>
 <link href="css/user_styles.css" rel="stylesheet" type="text/css" />
-</head><body bgcolor="tan">
+</head><body bgcolor="blue">
 
 <center><b><font color = "brown" size="6">Simple PHP Polling System</font></b></center><br><br>
 <div id="page">

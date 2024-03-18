@@ -2,7 +2,7 @@
 <link href="css/user_styles.css" rel="stylesheet" type="text/css" />
 <script language="JavaScript" src="js/user.js">
 </script>
-</head><body bgcolor="tan">
+</head><body bgcolor="blue">
    
 <center><b><font color = "brown" size="6">Simple PHP Polling System</font></b></center><br><br>
 <div id="page">

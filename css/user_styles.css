@@ -13,7 +13,7 @@ body {
 	padding-left: 1px;
 }
 .bottom_addr {
-font-size: 11px;
+font-size: 48px;
 color: #000;
 padding: 5px 0 12px 0; 
 text-align:center; 
@@ -28,7 +28,7 @@ h1 {
 	text-align:center;
 }
 h3{
-	color:red;
+	color:blue;
 	}
 a {
 	color: #2D3954;
